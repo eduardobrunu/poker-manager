@@ -1,8 +1,12 @@
 import { createClient } from '@supabase/supabase-js';
 
-// Validação das variáveis de ambiente
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.next_public_supabase_url || '';
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.next_public_supabase_anon_key || '';
+// Variáveis de ambiente (usa valores vazios se não configuradas para permitir build)
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 
+                    process.env.next_public_supabase_url || 
+                    'https://placeholder.supabase.co';
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 
+                        process.env.next_public_supabase_anon_key || 
+                        'placeholder-anon-key';
 
 // Cliente Supabase compartilhado (singleton)
 export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
