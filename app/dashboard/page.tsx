@@ -13,6 +13,9 @@ import { fetchUserSessions, calculateStats } from "@/lib/session-api";
 import { supabase } from "@/lib/supabase";
 import { PokerSession } from "@/types/session";
 
+// Força renderização dinâmica (não faz pre-render durante build)
+export const dynamic = 'force-dynamic';
+
 export default function DashboardPage() {
   const router = useRouter();
   const [sessions, setSessions] = useState<PokerSession[]>([]);

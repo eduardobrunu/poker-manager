@@ -2,6 +2,9 @@ import Link from "next/link";
 import BankrollCalculator from "@/components/features/BankrollCalculator";
 import { USD_TO_BRL } from "@/lib/bankroll-calculator";
 
+// Força renderização dinâmica
+export const dynamic = 'force-dynamic';
+
 export default function SessionsPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
