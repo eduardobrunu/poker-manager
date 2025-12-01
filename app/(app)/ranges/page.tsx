@@ -1,4 +1,3 @@
-import Link from "next/link";
 import HandRangeGrid from "@/components/features/HandRangeGrid";
 
 // Força renderização dinâmica
@@ -6,45 +5,22 @@ export const dynamic = 'force-dynamic';
 
 export default function RangesPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
-      <nav className="bg-gray-800/50 backdrop-blur-sm border-b border-gray-700">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between h-16 items-center">
-            <Link href="/" className="text-2xl font-bold text-green-400">Poker Manager</Link>
-            <div className="flex gap-4">
-              <Link href="/dashboard" className="text-gray-300 hover:text-white px-3 py-2 rounded-md">
-                Dashboard
-              </Link>
-              <Link href="/ranges" className="text-white bg-green-600 px-3 py-2 rounded-md">
-                Hand Ranges
-              </Link>
-              <Link href="/sessions" className="text-gray-300 hover:text-white px-3 py-2 rounded-md">
-                Sessões
-              </Link>
-            </div>
-          </div>
+    <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="mb-8">
+        <div className="flex items-center gap-3 mb-2">
+          <svg className="w-8 h-8 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          </svg>
+          <h1 className="text-3xl font-bold text-white">
+            Hand Range Helper - Texas Hold'em
+          </h1>
         </div>
-      </nav>
+        <p className="text-gray-400">
+          Quais mãos jogar em cada posição (2 cartas na mão). Otimizado para Cash Game e Rush & Cash.
+        </p>
+      </div>
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="mb-8">
-          <div className="flex items-center gap-3 mb-2">
-            <svg className="w-8 h-8 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-            </svg>
-            <h1 className="text-3xl font-bold text-white">
-              Hand Range Helper - Texas Hold'em
-            </h1>
-          </div>
-          <p className="text-gray-400">
-            Quais mãos jogar em cada posição (2 cartas na mão). Otimizado para Cash Game e Rush & Cash.
-          </p>
-          <p className="text-xs text-green-400 mt-1">
-            ✓ Não serve para Omaha (4 cartas)
-          </p>
-        </div>
-
-        <HandRangeGrid />
+      <HandRangeGrid />
 
         <div className="mt-8 grid md:grid-cols-2 gap-6">
           <div className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-lg p-6">
@@ -102,6 +78,5 @@ export default function RangesPage() {
           </div>
         </div>
       </main>
-    </div>
   );
 }

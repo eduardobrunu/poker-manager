@@ -7,47 +7,27 @@ export const dynamic = 'force-dynamic';
 
 export default function SessionsPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
-      <nav className="bg-gray-800/50 backdrop-blur-sm border-b border-gray-700">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between h-16 items-center">
-            <Link href="/" className="text-2xl font-bold text-green-400">Poker Manager</Link>
-            <div className="flex gap-4">
-              <Link href="/dashboard" className="text-gray-300 hover:text-white px-3 py-2 rounded-md">
-                Dashboard
-              </Link>
-              <Link href="/ranges" className="text-gray-300 hover:text-white px-3 py-2 rounded-md">
-                Hand Ranges
-              </Link>
-              <Link href="/sessions" className="text-white bg-green-600 px-3 py-2 rounded-md">
-                Sessões
-              </Link>
+    <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="grid lg:grid-cols-3 gap-8">
+        {/* Formulário */}
+        <div className="lg:col-span-2">
+          <div className="mb-8">
+            <div className="flex items-center gap-3 mb-2">
+              <svg className="w-8 h-8 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+              </svg>
+              <h1 className="text-3xl font-bold text-white">
+                Registrar Sessão
+              </h1>
             </div>
+            <p className="text-gray-400">
+              Adicione uma nova sessão de poker ao seu histórico
+            </p>
           </div>
-        </div>
-      </nav>
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid lg:grid-cols-3 gap-8">
-          {/* Formulário */}
-          <div className="lg:col-span-2">
-            <div className="mb-8">
-              <div className="flex items-center gap-3 mb-2">
-                <svg className="w-8 h-8 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                </svg>
-                <h1 className="text-3xl font-bold text-white">
-                  Registrar Sessão
-                </h1>
-              </div>
-              <p className="text-gray-400">
-                Adicione uma nova sessão de poker ao seu histórico
-              </p>
-            </div>
-
-        <div className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-lg p-6">
-          <form className="space-y-6">
-            <div className="grid md:grid-cols-2 gap-6">
+          <div className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-lg p-6">
+            <form className="space-y-6">
+              <div className="grid md:grid-cols-2 gap-6">
               {/* Data */}
               <div>
                 <label htmlFor="date" className="block text-sm font-medium text-gray-300 mb-2">
@@ -233,23 +213,22 @@ export default function SessionsPage() {
             <h3 className="text-lg font-bold text-blue-300">Dicas GGPoker</h3>
           </div>
           <div className="space-y-2 text-sm text-gray-300">
-            <p><strong className="text-blue-400">Cash Game:</strong> Texas Hold'em tradicional - 60 mãos/hora em média</p>
-            <p><strong className="text-blue-400">Rush & Cash:</strong> Hold'em fast-fold - 200 mãos/hora (3x mais rápido!)</p>
+            <p><strong className="text-blue-400">Cash Game:</strong> Texas Hold&apos;em tradicional - 60 mãos/hora em média</p>
+            <p><strong className="text-blue-400">Rush & Cash:</strong> Hold&apos;em fast-fold - 200 mãos/hora (3x mais rápido!)</p>
             <p><strong className="text-blue-400">Spin & Gold:</strong> Torneio rápido de 3 jogadores com multiplicador aleatório</p>
             <p><strong className="text-blue-400">Flip & Go:</strong> All-in pré-flop, depois joga normal - formato turbo</p>
-            <p className="text-xs text-blue-300 mt-3">💡 Dica: Rush & Cash é ótimo para jogar mais mãos em menos tempo!</p>
           </div>
+          <p className="text-xs text-blue-300 mt-3">Dica: Rush &amp; Cash é ótimo para jogar mais mãos em menos tempo!</p>
         </div>
       </div>
 
       {/* Calculadora Lateral */}
       <div className="lg:col-span-1">
-        <div className="sticky top-8">
+        <div className="sticky top-24">
           <BankrollCalculator initialBankrollUSD={100} />
         </div>
       </div>
     </div>
-      </main>
-    </div>
+    </main>
   );
 }
