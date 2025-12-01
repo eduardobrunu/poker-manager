@@ -1,34 +1,57 @@
-import { createClient } from '@supabase/supabase-js';
+import { createClient, SupabaseClient } from '@supabase/supabase-js';
 
 // Variáveis de ambiente
-// Preferir uppercase (NEXT_PUBLIC_*) para Next.js, com fallback para lowercase na Vercel
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL 
-  || process.env.next_public_supabase_url 
-  || '';
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
 
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY 
-  || process.env.next_public_supabase_anon_key 
-  || '';
+// Verifica se as credenciais estão configuradas
+export const isSupabaseConfigured = (): boolean => {
+  return Boolean(supabaseUrl && supabaseAnonKey && !supabaseUrl.includes('placeholder'));
+};
 
 // Cliente Supabase compartilhado (singleton)
-export const supabase = createClient(supabaseUrl || 'https://placeholder.supabase.co', supabaseAnonKey || 'placeholder-anon-key', {
-  auth: {
-    persistSession: true,
-    autoRefreshToken: true,
-    detectSessionInUrl: true
+export const supabase: SupabaseClient = createClient(
+  supabaseUrl || 'https://placeholder.supabase.co', 
+  supabaseAnonKey || 'placeholder-key',
+  {
+    auth: {
+      persistSession: true,
+      autoRefreshToken: true,
+      detectSessionInUrl: true,
+      flowType: 'pkce'
+    }
   }
-});
+);
 
-// Helper: Obter usuário atual
+// Helper: Obter usuário atual (valida token com servidor)
 export const getCurrentUser = async () => {
-  const { data: { user }, error } = await supabase.auth.getUser();
-  
-  if (error) {
-    console.error('Erro ao obter usuário:', error);
+  try {
+    const { data: { user }, error } = await supabase.auth.getUser();
+    
+    if (error) {
+      // Token inválido ou expirado
+      if (error.message.includes('invalid') || error.message.includes('expired')) {
+        await supabase.auth.signOut();
+      }
+      return null;
+    }
+    
+    return user;
+  } catch (err) {
+    console.error('Erro ao obter usuário:', err);
     return null;
   }
-  
-  return user;
+};
+
+// Helper: Obter sessão atual
+export const getSession = async () => {
+  try {
+    const { data: { session }, error } = await supabase.auth.getSession();
+    if (error) return null;
+    return session;
+  } catch {
+    return null;
+  }
 };
 
 // Helper: Fazer logout

@@ -1,8 +1,7 @@
 'use client';
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useEffect, useState, useCallback } from "react";
 import StatsCards from "@/components/features/StatsCards";
 import SessionHistory from "@/components/features/SessionHistory";
 import BankrollHealthCard from "@/components/features/BankrollHealthCard";
@@ -17,35 +16,30 @@ import { PokerSession } from "@/types/session";
 export const dynamic = 'force-dynamic';
 
 export default function DashboardPage() {
-  const router = useRouter();
   const [sessions, setSessions] = useState<PokerSession[]>([]);
   const [loading, setLoading] = useState(true);
-  const [user, setUser] = useState<any>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  const loadSessions = useCallback(async () => {
+    try {
+      setError(null);
+      const userSessions = await fetchUserSessions();
+      setSessions(userSessions);
+    } catch (err) {
+      console.error('Erro ao carregar sessões:', err);
+      setError('Erro ao carregar sessões. Tente novamente.');
+    } finally {
+      setLoading(false);
+    }
+  }, []);
 
   useEffect(() => {
-    const loadData = async () => {
-      try {
-        const { data: { user } } = await supabase.auth.getUser();
-        
-        if (!user) {
-          // Se não estiver autenticado, redireciona para login
-          router.push('/login');
-          return;
-        }
-        
-        setUser(user);
-        
-        const userSessions = await fetchUserSessions();
-        setSessions(userSessions);
-      } catch (error) {
-        console.error('Erro ao carregar sessões:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
+    loadSessions();
+  }, [loadSessions]);
 
-    loadData();
-  }, [router]);
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+  };
 
   const stats = calculateStats(sessions);
 
@@ -62,6 +56,24 @@ export default function DashboardPage() {
     );
   }
 
+  if (error) {
+    return (
+      <AuthGuard>
+        <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 flex items-center justify-center">
+          <div className="text-center">
+            <p className="text-red-400 mb-4">{error}</p>
+            <button 
+              onClick={loadSessions}
+              className="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg"
+            >
+              Tentar novamente
+            </button>
+          </div>
+        </div>
+      </AuthGuard>
+    );
+  }
+
   return (
     <AuthGuard>
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
@@ -69,7 +81,7 @@ export default function DashboardPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16 items-center">
             <Link href="/" className="text-2xl font-bold text-green-400">Poker Manager</Link>
-            <div className="flex gap-4">
+            <div className="flex gap-4 items-center">
               <Link href="/dashboard" className="text-white bg-green-600 px-3 py-2 rounded-md">
                 Dashboard
               </Link>
@@ -79,6 +91,12 @@ export default function DashboardPage() {
               <Link href="/sessions" className="text-gray-300 hover:text-white px-3 py-2 rounded-md">
                 Sessões
               </Link>
+              <button 
+                onClick={handleLogout}
+                className="text-gray-400 hover:text-red-400 px-3 py-2 rounded-md text-sm"
+              >
+                Sair
+              </button>
             </div>
           </div>
         </div>

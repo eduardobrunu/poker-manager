@@ -1,7 +1,7 @@
 'use client';
 
-import { useState } from 'react';
-import { supabase } from '@/lib/supabase';
+import { useState, useEffect } from 'react';
+import { supabase, isSupabaseConfigured } from '@/lib/supabase';
 import { useRouter } from 'next/navigation';
 
 // Força renderização dinâmica
@@ -12,49 +12,98 @@ export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+  const [checkingAuth, setCheckingAuth] = useState(true);
   const [message, setMessage] = useState<{ type: 'error' | 'success', text: string } | null>(null);
   const router = useRouter();
+
+  // Verificar se já está logado ao carregar a página
+  useEffect(() => {
+    const checkExistingSession = async () => {
+      try {
+        const { data: { user } } = await supabase.auth.getUser();
+        if (user) {
+          router.replace('/dashboard');
+          return;
+        }
+      } catch {
+        // Não está logado, continua na página de login
+      }
+      setCheckingAuth(false);
+    };
+    
+    checkExistingSession();
+  }, [router]);
 
   const handleAuth = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setMessage(null);
 
+    // Verificar configuração do Supabase
+    if (!isSupabaseConfigured()) {
+      setMessage({ 
+        type: 'error', 
+        text: 'Sistema não configurado. Verifique as variáveis de ambiente.' 
+      });
+      setLoading(false);
+      return;
+    }
+
     try {
       if (isLogin) {
         // Login
         const { data, error } = await supabase.auth.signInWithPassword({
-          email,
+          email: email.trim().toLowerCase(),
           password,
         });
 
-        if (error) throw error;
+        if (error) {
+          // Traduzir erros comuns
+          if (error.message.includes('Invalid login credentials')) {
+            throw new Error('Email ou senha incorretos');
+          }
+          if (error.message.includes('Email not confirmed')) {
+            throw new Error('Confirme seu email antes de fazer login');
+          }
+          throw error;
+        }
 
-        router.push('/dashboard');
+        if (data.session) {
+          // Aguardar um momento para a sessão persistir
+          await new Promise(resolve => setTimeout(resolve, 100));
+          router.replace('/dashboard');
+        }
       } else {
         // Registro
         const { data, error } = await supabase.auth.signUp({
-          email,
+          email: email.trim().toLowerCase(),
           password,
           options: {
             emailRedirectTo: `${window.location.origin}/dashboard`,
           }
         });
 
-        if (error) throw error;
+        if (error) {
+          if (error.message.includes('already registered')) {
+            throw new Error('Este email já está cadastrado');
+          }
+          throw error;
+        }
 
         // Verificar se o usuário foi criado e já está autenticado
-        const { data: { session } } = await supabase.auth.getSession();
-        
-        if (session) {
+        if (data.session) {
           setMessage({ 
             type: 'success', 
             text: 'Conta criada com sucesso! Redirecionando...' 
           });
-          
-          setTimeout(() => {
-            router.push('/dashboard');
-          }, 1000);
+          await new Promise(resolve => setTimeout(resolve, 500));
+          router.replace('/dashboard');
+        } else if (data.user && !data.session) {
+          // Precisa confirmar email
+          setMessage({ 
+            type: 'success', 
+            text: 'Conta criada! Verifique seu email para confirmar.' 
+          });
         } else {
           setMessage({ 
             type: 'success', 
@@ -72,6 +121,18 @@ export default function LoginPage() {
       setLoading(false);
     }
   };
+
+  // Mostrar loading enquanto verifica sessão existente
+  if (checkingAuth) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-12 h-12 border-4 border-green-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-gray-400">Verificando...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 flex items-center justify-center px-4">
