@@ -8,7 +8,6 @@ interface Position {
   shortName: string;
   description: string;
   rangeSize: string;
-  icon: string;
 }
 
 const POSITIONS: Position[] = [
@@ -16,49 +15,43 @@ const POSITIONS: Position[] = [
     id: 'utg', 
     name: 'Under The Gun', 
     shortName: 'UTG',
-    description: 'Primeira posição - Jogue apenas mãos premium!',
-    rangeSize: '~10% das mãos',
-    icon: '🎯'
+    description: 'Primeira posição - Range mais tight',
+    rangeSize: '~10%',
   },
   { 
     id: 'mp', 
     name: 'Middle Position', 
     shortName: 'MP',
-    description: 'Posição intermediária - Adicione mais mãos boas',
-    rangeSize: '~15% das mãos',
-    icon: '🔄'
+    description: 'Posição intermediária',
+    rangeSize: '~15%',
   },
   { 
     id: 'co', 
     name: 'Cutoff', 
     shortName: 'CO',
-    description: 'Posição boa - Amplie seu range!',
-    rangeSize: '~25% das mãos',
-    icon: '✂️'
+    description: 'Posição de steal',
+    rangeSize: '~25%',
   },
   { 
     id: 'btn', 
     name: 'Button', 
     shortName: 'BTN',
-    description: 'MELHOR posição! - Jogue mais agressivo',
-    rangeSize: '~40% das mãos',
-    icon: '⭐'
+    description: 'Melhor posição - Range mais amplo',
+    rangeSize: '~40%',
   },
   { 
     id: 'sb', 
     name: 'Small Blind', 
     shortName: 'SB',
-    description: 'Posição complicada - Defenda vs BTN',
-    rangeSize: '~30% das mãos',
-    icon: '🔒'
+    description: 'Fora de posição pós-flop',
+    rangeSize: '~30%',
   },
   { 
     id: 'bb', 
     name: 'Big Blind', 
     shortName: 'BB',
-    description: 'Última a agir pré-flop - Defenda seu blind!',
-    rangeSize: '~40% das mãos',
-    icon: '🛡️'
+    description: 'Defesa de blind',
+    rangeSize: '~40%',
   },
 ];
 
@@ -72,37 +65,37 @@ interface HandDecision {
 
 const HANDS_BY_POSITION: Record<string, HandDecision[]> = {
   utg: [
-    { hand: 'AA', display: 'A♠A♥', action: 'raise', strength: 5, tip: 'SEMPRE raise! Melhor mão do poker' },
-    { hand: 'KK', display: 'K♠K♥', action: 'raise', strength: 5, tip: 'Segundo nuts - Raise sempre!' },
-    { hand: 'QQ', display: 'Q♠Q♥', action: 'raise', strength: 5, tip: 'Muito forte - Raise!' },
-    { hand: 'JJ', display: 'J♠J♥', action: 'raise', strength: 4, tip: 'Forte, mas cuidado com overcards' },
-    { hand: 'TT', display: 'T♠T♥', action: 'raise', strength: 4 },
-    { hand: 'AKs', display: 'A♠K♠', action: 'raise', strength: 5, tip: 'Premium suited - Muito forte!' },
-    { hand: 'AKo', display: 'A♠K♥', action: 'raise', strength: 4 },
-    { hand: 'AQs', display: 'A♠Q♠', action: 'raise', strength: 4 },
-    { hand: '99', display: '9♠9♥', action: 'raise', strength: 3 },
-    { hand: 'AJs', display: 'A♠J♠', action: 'raise', strength: 3 },
+    { hand: 'AA', display: 'AA', action: 'raise', strength: 5, tip: 'Premium - Sempre raise' },
+    { hand: 'KK', display: 'KK', action: 'raise', strength: 5, tip: 'Premium - Sempre raise' },
+    { hand: 'QQ', display: 'QQ', action: 'raise', strength: 5, tip: 'Premium' },
+    { hand: 'JJ', display: 'JJ', action: 'raise', strength: 4, tip: 'Forte, atenção a overcards' },
+    { hand: 'TT', display: 'TT', action: 'raise', strength: 4 },
+    { hand: 'AKs', display: 'AKs', action: 'raise', strength: 5, tip: 'Premium suited' },
+    { hand: 'AKo', display: 'AKo', action: 'raise', strength: 4 },
+    { hand: 'AQs', display: 'AQs', action: 'raise', strength: 4 },
+    { hand: '99', display: '99', action: 'raise', strength: 3 },
+    { hand: 'AJs', display: 'AJs', action: 'raise', strength: 3 },
   ],
   btn: [
-    { hand: 'AA-22', display: 'Todos os pares', action: 'raise', strength: 4, tip: 'Na posição, todos os pares são lucrativos!' },
-    { hand: 'AXs', display: 'A♠X♠', action: 'raise', strength: 3, tip: 'Qualquer Ás suited - Jogue!' },
-    { hand: 'KQo', display: 'K♠Q♥', action: 'raise', strength: 3 },
-    { hand: 'QJs', display: 'Q♠J♠', action: 'raise', strength: 3 },
-    { hand: 'JTs', display: 'J♠T♠', action: 'raise', strength: 3, tip: 'Ótima para straights e flushes' },
-    { hand: 'T9s', display: 'T♠9♠', action: 'raise', strength: 2 },
-    { hand: '98s', display: '9♠8♠', action: 'raise', strength: 2, tip: 'Suited connectors - Potencial!' },
-    { hand: '87s', display: '8♠7♠', action: 'raise', strength: 2 },
-    { hand: 'K9s', display: 'K♠9♠', action: 'raise', strength: 2 },
-    { hand: 'Q9s', display: 'Q♠9♠', action: 'raise', strength: 2 },
+    { hand: 'AA-22', display: 'Todos pares', action: 'raise', strength: 4, tip: 'Pares lucrativos em posição' },
+    { hand: 'AXs', display: 'AXs', action: 'raise', strength: 3, tip: 'Ás suited jogável' },
+    { hand: 'KQo', display: 'KQo', action: 'raise', strength: 3 },
+    { hand: 'QJs', display: 'QJs', action: 'raise', strength: 3 },
+    { hand: 'JTs', display: 'JTs', action: 'raise', strength: 3, tip: 'Bom potencial de straights' },
+    { hand: 'T9s', display: 'T9s', action: 'raise', strength: 2 },
+    { hand: '98s', display: '98s', action: 'raise', strength: 2, tip: 'Suited connector' },
+    { hand: '87s', display: '87s', action: 'raise', strength: 2 },
+    { hand: 'K9s', display: 'K9s', action: 'raise', strength: 2 },
+    { hand: 'Q9s', display: 'Q9s', action: 'raise', strength: 2 },
   ],
   bb: [
-    { hand: 'AA-JJ', display: 'Pares altos', action: '3bet', strength: 5, tip: '3-bet para valor!' },
-    { hand: 'TT-77', display: 'Pares médios', action: 'call', strength: 3, tip: 'Call e tente set mine' },
-    { hand: '66-22', display: 'Pares baixos', action: 'call', strength: 2, tip: 'Call barato, fold vs 3bet' },
-    { hand: 'AKs/AKo', display: 'AK', action: '3bet', strength: 5, tip: '3-bet sempre!' },
-    { hand: 'AQs-ATs', display: 'A♠Q-T♠', action: 'call', strength: 3 },
-    { hand: 'KQs', display: 'K♠Q♠', action: 'call', strength: 3 },
-    { hand: 'Suited connectors', display: '98s, 87s...', action: 'call', strength: 2, tip: 'Ótimas odds implícitas' },
+    { hand: 'AA-JJ', display: 'AA-JJ', action: '3bet', strength: 5, tip: '3-bet for value' },
+    { hand: 'TT-77', display: 'TT-77', action: 'call', strength: 3, tip: 'Set mining' },
+    { hand: '66-22', display: '66-22', action: 'call', strength: 2, tip: 'Call se odds boas' },
+    { hand: 'AKs/AKo', display: 'AK', action: '3bet', strength: 5, tip: '3-bet sempre' },
+    { hand: 'AQs-ATs', display: 'AQs-ATs', action: 'call', strength: 3 },
+    { hand: 'KQs', display: 'KQs', action: 'call', strength: 3 },
+    { hand: 'Suited connectors', display: '98s, 87s', action: 'call', strength: 2, tip: 'Implied odds' },
   ],
 };
 
@@ -134,53 +127,43 @@ export default function SimpleRangeHelper() {
     <div className="space-y-6">
       {/* Position Selector */}
       <div className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-2xl p-6">
-        <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
-          <svg className="w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-          </svg>
-          Onde você está sentado?
-        </h2>
+        <h2 className="text-lg font-semibold text-white mb-4">Posição na Mesa</h2>
 
         <div className="grid grid-cols-3 md:grid-cols-6 gap-2">
           {POSITIONS.map((pos) => (
             <button
               key={pos.id}
               onClick={() => setSelectedPosition(pos)}
-              className={`p-3 rounded-xl border-2 transition-all text-center ${
+              className={`p-3 rounded-lg border transition-all text-center ${
                 selectedPosition.id === pos.id
-                  ? 'bg-green-500/20 border-green-500 scale-105'
+                  ? 'bg-green-500/20 border-green-500'
                   : 'bg-gray-900/50 border-gray-700 hover:border-gray-600'
               }`}
             >
-              <span className="text-2xl block mb-1">{pos.icon}</span>
               <span className="font-bold text-white text-sm">{pos.shortName}</span>
+              <span className="text-xs text-gray-500 block">{pos.rangeSize}</span>
             </button>
           ))}
         </div>
 
         {/* Position Info */}
-        <div className="mt-4 bg-gray-900/50 rounded-xl p-4">
-          <div className="flex items-start gap-3">
-            <span className="text-3xl">{selectedPosition.icon}</span>
-            <div>
-              <h3 className="font-bold text-white">{selectedPosition.name}</h3>
-              <p className="text-gray-400 text-sm">{selectedPosition.description}</p>
-              <span className="inline-block mt-2 px-3 py-1 bg-green-500/20 text-green-400 text-xs rounded-full">
+        <div className="mt-4 bg-gray-900/50 rounded-lg p-4">
+          <div>
+            <div className="flex items-center justify-between">
+              <h3 className="font-semibold text-white">{selectedPosition.name}</h3>
+              <span className="px-2 py-1 bg-green-500/20 text-green-400 text-xs rounded">
                 {selectedPosition.rangeSize}
               </span>
             </div>
+            <p className="text-gray-400 text-sm mt-1">{selectedPosition.description}</p>
           </div>
         </div>
       </div>
 
       {/* Hands to Play */}
-      <div className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-2xl p-6">
-        <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
-          <svg className="w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-          </svg>
-          Mãos para jogar no {selectedPosition.shortName}
+      <div className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-lg p-6">
+        <h2 className="text-lg font-semibold text-white mb-4">
+          Range para {selectedPosition.shortName}
         </h2>
 
         <div className="space-y-3">

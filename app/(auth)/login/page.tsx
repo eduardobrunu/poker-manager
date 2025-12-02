@@ -248,8 +248,11 @@ export default function LoginPage() {
         </p>
 
         <div className="mt-8 p-4 bg-blue-900/20 border border-blue-700/50 rounded-lg">
-          <p className="text-xs text-blue-300 text-center">
-            🔒 Seus dados são criptografados e armazenados com segurança no Supabase
+          <p className="text-xs text-blue-300 text-center flex items-center justify-center gap-2">
+            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
+            </svg>
+            Seus dados são criptografados e armazenados com segurança no Supabase
           </p>
         </div>
       </div>

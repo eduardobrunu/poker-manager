@@ -63,13 +63,13 @@ export default function BankrollCalculator({ initialBankrollUSD = 100 }: Bankrol
             onChange={(e) => setGameType(e.target.value as keyof typeof GAME_FORMATS)}
             className="w-full px-4 py-2 bg-gray-900 border border-gray-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-green-500"
           >
-            <option value="Rush & Cash">⚡ Rush & Cash (200 mãos/h)</option>
-            <option value="Cash Game">🃏 Cash Game (60 mãos/h)</option>
-            <option value="Spin & Gold">🎰 Spin & Gold</option>
-            <option value="Flip & Go">💥 Flip & Go</option>
-            <option value="Mystery Bounty">🎁 Mystery Bounty</option>
-            <option value="Sit & Go">🪑 Sit & Go</option>
-            <option value="Torneio">🏆 Torneio</option>
+            <option value="Rush & Cash">Rush & Cash (200 mãos/h)</option>
+            <option value="Cash Game">Cash Game (60 mãos/h)</option>
+            <option value="Spin & Gold">Spin & Gold</option>
+            <option value="Flip & Go">Flip & Go</option>
+            <option value="Mystery Bounty">Mystery Bounty</option>
+            <option value="Sit & Go">Sit & Go</option>
+            <option value="Torneio">Torneio</option>
           </select>
           <p className="text-xs text-gray-500 mt-1">Todos os modos usam Texas Hold'em (2 cartas)</p>
         </div>

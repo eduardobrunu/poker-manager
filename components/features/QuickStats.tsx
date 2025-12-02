@@ -77,11 +77,11 @@ export default function QuickStats({ currentBankroll, currentStakes }: QuickStat
           <div className="mt-3 pt-3 border-t border-gray-700">
             <p className="text-xs text-gray-400 mb-1">Status:</p>
             {buyInsAvailable >= 30 ? (
-              <p className="text-sm text-green-400 font-medium">✓ Seguro para jogar</p>
+              <p className="text-sm text-green-400 font-medium">Seguro para jogar</p>
             ) : buyInsAvailable >= 20 ? (
-              <p className="text-sm text-yellow-400 font-medium">⚠ Atenção - considere stakes menores</p>
+              <p className="text-sm text-yellow-400 font-medium">Atenção - considere stakes menores</p>
             ) : (
-              <p className="text-sm text-red-400 font-medium">✗ Risco alto - jogue stakes menores</p>
+              <p className="text-sm text-red-400 font-medium">Risco alto - jogue stakes menores</p>
             )}
           </div>
         </div>

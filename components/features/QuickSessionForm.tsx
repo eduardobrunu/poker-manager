@@ -11,32 +11,28 @@ const GAME_MODES = [
   { 
     id: 'rush', 
     name: 'Rush & Cash', 
-    desc: 'Fast-fold - Jogue mais mãos!',
-    icon: '⚡',
+    desc: 'Fast-fold - Alto volume de mãos',
     color: 'from-yellow-500/20 to-orange-500/20 border-yellow-500/50',
     recommended: true
   },
   { 
     id: 'cash', 
     name: 'Cash Game', 
-    desc: 'Jogo tradicional - Sem pressa',
-    icon: '💵',
+    desc: 'Jogo tradicional',
     color: 'from-green-500/20 to-emerald-500/20 border-green-500/50',
     recommended: false
   },
   { 
     id: 'spin', 
     name: 'Spin & Gold', 
-    desc: 'Torneio rápido 3 jogadores',
-    icon: '🎰',
+    desc: 'Torneio 3-max com multiplicador',
     color: 'from-purple-500/20 to-pink-500/20 border-purple-500/50',
     recommended: false
   },
   { 
     id: 'torneio', 
-    name: 'Torneio', 
-    desc: 'MTT - Competição maior',
-    icon: '🏆',
+    name: 'Torneio MTT', 
+    desc: 'Multi-table tournament',
     color: 'from-blue-500/20 to-cyan-500/20 border-blue-500/50',
     recommended: false
   },
@@ -131,7 +127,7 @@ export default function QuickSessionForm({ onSessionSaved }: QuickSessionFormPro
         </div>
         <h3 className="text-2xl font-bold text-white mb-2">Sessão Salva!</h3>
         <p className="text-green-300">
-          {profit >= 0 ? `Lucro de $${profit.toFixed(2)} 🎉` : `Prejuízo de $${Math.abs(profit).toFixed(2)} - Faz parte!`}
+          {profit >= 0 ? `Lucro: $${profit.toFixed(2)}` : `Resultado: -$${Math.abs(profit).toFixed(2)}`}
         </p>
       </div>
     );
@@ -174,12 +170,11 @@ export default function QuickSessionForm({ onSessionSaved }: QuickSessionFormPro
                   }`}
                 >
                   {mode.recommended && (
-                    <span className="absolute -top-2 -right-2 bg-green-500 text-white text-xs px-2 py-1 rounded-full">
+                    <span className="absolute -top-2 -right-2 bg-green-500 text-white text-xs px-2 py-1 rounded-full font-medium">
                       Recomendado
                     </span>
                   )}
-                  <span className="text-3xl mb-2 block">{mode.icon}</span>
-                  <h3 className="font-bold text-white">{mode.name}</h3>
+                  <h3 className="font-bold text-white text-lg">{mode.name}</h3>
                   <p className="text-xs text-gray-400 mt-1">{mode.desc}</p>
                 </button>
               ))}
@@ -298,7 +293,7 @@ export default function QuickSessionForm({ onSessionSaved }: QuickSessionFormPro
                   {profit >= 0 ? '+' : ''}{profit.toFixed(2)} USD
                 </span>
                 <span className={`text-sm block mt-1 ${profit >= 0 ? 'text-green-300' : 'text-red-300'}`}>
-                  {profit >= 0 ? `+${profitPercent}% 🎉` : `${profitPercent}%`}
+                  {profitPercent}% ROI
                 </span>
               </div>
             )}
