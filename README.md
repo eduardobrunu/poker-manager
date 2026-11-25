@@ -2,6 +2,10 @@
 
 Sistema profissional de gerenciamento de bankroll para poker desenvolvido em Next.js + TypeScript.
 
+[Demo](https://poker-m4n4ger.vercel.app/) · [Guia de uso](GUIA.md) · [Configuração de ambiente](VERCEL-ENV.md)
+
+O projeto usa Next.js e TypeScript na aplicação e Supabase na persistência das sessões. O painel usa esses registros para exibir histórico e indicadores de bankroll.
+
 ## Funcionalidades Principais
 
 ### 1. Calculadora de Bankroll USD
