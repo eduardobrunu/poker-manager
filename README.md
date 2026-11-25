@@ -6,6 +6,14 @@ Sistema profissional de gerenciamento de bankroll para poker desenvolvido em Nex
 
 O projeto usa Next.js e TypeScript na aplicação e Supabase na persistência das sessões. O painel usa esses registros para exibir histórico e indicadores de bankroll.
 
+## Como o código está organizado
+
+- [`lib/session-api.ts`](lib/session-api.ts) consulta, cria e exclui registros no Supabase. A listagem carrega as sessões do usuário autenticado e converte os registros do banco para o formato usado pela interface.
+- [`app/(app)/dashboard/page.tsx`](app/%28app%29/dashboard/page.tsx) apresenta os registros e indicadores. [`lib/bankroll-calculator.ts`](lib/bankroll-calculator.ts) concentra os cálculos de banca.
+- [`lib/poker-ranges.ts`](lib/poker-ranges.ts) mantém as tabelas usadas no assistente de ranges.
+
+Um fluxo para revisar no código é **registro de sessão → persistência → histórico e indicadores**. A demo abre no login e a configuração local do Supabase está no [guia de ambiente](VERCEL-ENV.md).
+
 ## Funcionalidades Principais
 
 ### 1. Calculadora de Bankroll USD
